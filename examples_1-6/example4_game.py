@@ -1,4 +1,4 @@
-# Example 3
+# Example 4
 
 # Import and initialize pygame
 from random import randint, choice
@@ -25,9 +25,10 @@ class GameObject(pygame.sprite.Sprite):
   def render(self, screen):
     screen.blit(self.surf, (self.x, self.y))
 
+
 class Apple(GameObject):
  def __init__(self):
-   super(Apple, self).__init__(0, 0, 'apple.png')
+   super(Apple, self).__init__(0, 0, 'images/apple.png')
    self.dx = 0
    self.dy = (randint(0, 200) / 100) + 1
    self.reset() # call reset here! 
@@ -44,9 +45,10 @@ class Apple(GameObject):
    self.x = choice([93, 218, 343])
    self.y = -64
 
+
 class Strawberry(GameObject):
  def __init__(self):
-   super(Strawberry, self).__init__(0, 0, 'strawberry.png')
+   super(Strawberry, self).__init__(0, 0, 'images/stawberry.png')
    self.dy = 0
    self.dx = (randint(0, 200) / 100) + 1
    self.reset() # call reset here! 
@@ -64,9 +66,52 @@ class Strawberry(GameObject):
    self.x = -64
 
 
+class Player(GameObject):
+  def __init__(self):
+    super(Player, self).__init__(0, 0, 'images/player.png')
+    self.dx = choice([93, 218, 343])
+    self.dy = choice([93, 218, 343])
+    self.reset()
+
+  def left(self):
+    if self.x <= 93:
+        self.right()
+    else:
+        self.dx -= 125
+
+  def right(self):
+    if self.x >= 343:
+        self.left()
+    else:
+        self.dx += 125
+
+  def up(self):
+    if self.y <= 93:
+        self.down()
+    else:
+        self.dy -= 125
+
+  def down(self):
+    if self.y >= 343:
+        self.up()
+    else:
+        self.dy += 125
+
+  def move(self):
+    self.x -= (self.x - self.dx) * 0.25
+    self.y -= (self.y - self.dy) * 0.25
+
+  def reset(self):
+    self.x = 250 - 32
+    self.y = 250 - 32
+
+
 # Make an instance of GameObject
 apple = Apple()
 strawberry = Strawberry()
+
+# make an instance of Player
+player = Player()
 
 # Create the game loop
 running = True
@@ -75,13 +120,28 @@ while running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
-      
+    elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_ESCAPE:
+        running = False
+      elif event.key == pygame.K_LEFT:
+        player.left()
+      elif event.key == pygame.K_RIGHT:
+        player.right()
+      elif event.key == pygame.K_UP:
+        player.up()
+      elif event.key == pygame.K_DOWN:
+        player.down()
+  
   # Clear screen
   screen.fill((255, 255, 255))
   
-  # Draw apple
+    # Draw apple
   apple.move()
   apple.render(screen)
+
+  # Draw player 
+  player.move()
+  player.render(screen)
 
   # Draw strawberry
   strawberry.move()
@@ -92,4 +152,3 @@ while running:
   pygame.display.flip()
   # tick the clock!
   clock.tick(60)
-

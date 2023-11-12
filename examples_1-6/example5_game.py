@@ -37,7 +37,7 @@ class GameObject(pygame.sprite.Sprite):
 
 class Apple(GameObject):
   def __init__(self):
-    super(Apple, self).__init__(0, 0, 'apple.png')
+    super(Apple, self).__init__(0, 0, 'images/apple.png')
     self.dx = 0
     self.dy = (randint(0, 200) / 100) + 1
     self.reset() # call reset here! 
@@ -64,7 +64,7 @@ class Apple(GameObject):
 
 class Strawberry(GameObject):
   def __init__(self):
-   super(Strawberry, self).__init__(0, 0, 'strawberry.png')
+   super(Strawberry, self).__init__(0, 0, 'images/stawberry.png')
    self.dy = 0
    self.dx = (randint(0, 200) / 100) + 1
    self.reset() # call reset here! 
@@ -92,7 +92,7 @@ class Strawberry(GameObject):
 
 class Player(GameObject):
   def __init__(self):
-    super(Player, self).__init__(0, 0, 'player.png')
+    super(Player, self).__init__(0, 0, 'images/player.png')
     self.dx = 0
     self.dy = 0
     self.reset()
@@ -132,7 +132,7 @@ class Player(GameObject):
 
 class Bomb(GameObject):
   def __init__(self):
-    super(Bomb, self).__init__(0, 0, 'bomb.png')
+    super(Bomb, self).__init__(0, 0, 'images/bomb.png')
     self.dx = 0
     self.dy = 0
     self.reset() # call reset here! 

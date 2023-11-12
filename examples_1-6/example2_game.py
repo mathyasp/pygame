@@ -22,15 +22,15 @@ class GameObject(pygame.sprite.Sprite):
 
 # Make an instance of GameObject
 # box = GameObject(120, 300, 50, 50) REMOVE!
-apple = GameObject(5, 5, 'apple.png')
-apple2 = GameObject(430, 5, 'apple.png')
-apple3 = GameObject(220, 220, 'apple.png')
-apple4 = GameObject(5, 430, 'apple.png') 
-apple5 = GameObject(430, 430, 'apple.png')
-strawberry = GameObject(220, 5, 'strawberry.png')
-strawberry2 = GameObject(5, 220, 'strawberry.png')
-strawberry3 = GameObject(430, 220, 'strawberry.png')
-strawberry4 = GameObject(220, 430, 'strawberry.png')
+apple = GameObject(5, 5, 'images/apple.png')
+apple2 = GameObject(430, 5, 'images/apple.png')
+apple3 = GameObject(220, 220, 'images/apple.png')
+apple4 = GameObject(5, 430, 'images/apple.png') 
+apple5 = GameObject(430, 430, 'images/apple.png')
+strawberry = GameObject(220, 5, 'images/stawberry.png')
+strawberry2 = GameObject(5, 220, 'images/stawberry.png')
+strawberry3 = GameObject(430, 220, 'images/stawberry.png')
+strawberry4 = GameObject(220, 430, 'images/stawberry.png')
 
 # Create the game loop
 running = True
