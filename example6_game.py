@@ -20,6 +20,10 @@ l_or_r = ['left', 'right']
 # Up or down
 u_or_d = ['up', 'down']
 
+# speed of objects
+speed_x = 2
+speed_y = 2
+
 # Game Object
 class GameObject(pygame.sprite.Sprite):
 	def __init__(self, x, y, image):
@@ -39,7 +43,7 @@ class Apple(GameObject):
   def __init__(self):
     super(Apple, self).__init__(0, 0, 'apple.png')
     self.dx = 0
-    self.dy = (randint(0, 200) / 100) + 1
+    self.dy = speed_y
     self.reset() # call reset here! 
 
   def move(self):
@@ -55,18 +59,18 @@ class Apple(GameObject):
     if direction == 'up':
       self.x = choice(lanes)
       self.y = 505
-      self.dy = -((randint(0, 200) / 100) + 1)
+      self.dy = -speed_y
     else:
       self.x = choice(lanes)
       self.y = -65
-      self.dy = (randint(0, 200) / 100) + 1
+      self.dy = speed_y
 
 
 class Strawberry(GameObject):
   def __init__(self):
    super(Strawberry, self).__init__(0, 0, 'strawberry.png')
    self.dy = 0
-   self.dx = (randint(0, 200) / 100) + 1
+   self.dx = speed_x
    self.reset() # call reset here! 
 
   def move(self):
@@ -82,11 +86,11 @@ class Strawberry(GameObject):
     if direction == 'left':
       self.y = choice(lanes)
       self.x = 505
-      self.dx = -((randint(0, 200) / 100) + 1)
+      self.dx = -speed_x
     else:
       self.y = choice(lanes)
       self.x = -65
-      self.dx = (randint(0, 200) / 100) + 1
+      self.dx = speed_x
       
 
 
@@ -133,8 +137,8 @@ class Player(GameObject):
 class Bomb(GameObject):
   def __init__(self):
     super(Bomb, self).__init__(0, 0, 'bomb.png')
-    self.dx = 0
-    self.dy = 0
+    self.dx = speed_x
+    self.dy = speed_y
     self.reset() # call reset here! 
 
   def move(self):
@@ -153,22 +157,22 @@ class Bomb(GameObject):
     if chosen_direction == 'up':
       self.x = choice(lanes)
       self.y = 505
-      self.dy = -((randint(0, 200) / 100) + 1)
+      self.dy = -speed_y
       self.dx = 0
     elif chosen_direction == 'down':
       self.x = choice(lanes)
       self.y = -65
-      self.dy = (randint(0, 200) / 100) + 1
+      self.dy = speed_y
       self.dx = 0
     elif chosen_direction == 'left':
       self.y = choice(lanes)
       self.x = 505
-      self.dx = -((randint(0, 200) / 100) + 1)
+      self.dx = -speed_x
       self.dy = 0
     else:
       self.y = choice(lanes)
       self.x = -65
-      self.dx = (randint(0, 200) / 100) + 1
+      self.dx = speed_x
       self.dy = 0
 
 # Make an instance of GameObject
@@ -189,6 +193,13 @@ all_sprites.add(player)
 all_sprites.add(apple)
 all_sprites.add(strawberry)
 all_sprites.add(bomb)
+
+# make a fruits Group
+fruit_sprites = pygame.sprite.Group()
+
+# Add fruits to fruit_sprites
+fruit_sprites.add(apple)
+fruit_sprites.add(strawberry)
 
 # Create the game loop
 running = True
@@ -216,6 +227,17 @@ while running:
   for entity in all_sprites:
     entity.move()
     entity.render(screen)
+
+  # Check Colisions
+  fruit = pygame.sprite.spritecollideany(player, fruit_sprites)
+  if fruit:
+    fruit.reset()
+    speed_x += 1
+    speed_y += 1
+
+  # Check collision player and bomb
+  if pygame.sprite.collide_rect(player, bomb):
+    running = False
 
   # Update the window
   pygame.display.flip()
