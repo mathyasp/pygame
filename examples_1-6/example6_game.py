@@ -1,4 +1,4 @@
-# Example 5
+# Example 6
 
 # Import and initialize pygame
 from random import randint, choice
@@ -90,8 +90,7 @@ class Strawberry(GameObject):
     else:
       self.y = choice(lanes)
       self.x = -65
-      self.dx = speed_x
-      
+      self.dx = speed_x   
 
 
 class Player(GameObject):
